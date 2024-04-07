@@ -11,5 +11,5 @@ app.register_blueprint(route_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(store_bp)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
