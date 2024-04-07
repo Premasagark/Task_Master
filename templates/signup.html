@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script>
+    function Signup() {
+        let given_name = $('#username').val();
+        let given_email = $('#email').val();
+        let given_password = $('#password').val();
+        let given_con_password = $('#con_password').val();
+      
+
+        if (given_password != given_con_password) {
+            alert("Password doesn't match");
+        } else {
+            console.log(given_name, given_email, given_password, given_con_password);
+            $.ajax({
+                type: "POST",
+                url: '/user/signup',
+                data: { 'name': given_name, 'email': given_email, 'pwd': given_password },
+                dataType: "json",
+                success: function (response) {
+                    alert(response['msg']);
+                    window.location.replace("/login")
+                }
+            });
+
+        }
+
+    }
+</script>
+
+<div class="wrap">
+    <div style="color: white;margin-bottom: 30px;text-align: center;">
+        <h1 style="color: white;">Sign Up</h1>
+    </div>
+    <form name="signup_form">
+        <div class="form-floating mb-3">
+            <input type="text" autocomplete="name" class="form-control" id="username" placeholder="name@example.com">
+            <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" autocomplete="email" class="form-control" id="email" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" autocomplete="current-password" class="form-control" id="password"
+                placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="con_password" placeholder="Password">
+            <label for="floatingInput">Conform Password</label>
+        </div>
+    
+        <div class="d-grid gap-2 col-6 mx-auto" style="margin-top: 20px;">
+            <button type="button" class="btn btn-primary" value="sing" onclick="Signup()"
+                style="border-radius: 10px;background-color:#7f17cf88;">Signup</input>
+        </div>
+    </form>
+    <p style="color: bisque;text-align: center;margin: 10px;">Already have a account? <a href="/login">Login Page</a>
+    </p>
+</div>
+{% endblock %}

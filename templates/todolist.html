@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script src="/static/scr.js"> </script>
+    <link rel="stylesheet" href="/static/style2.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>To Do List</h1>
+
+        </div>
+        <div class="input-container">
+            <input type="text" id="todoInput" placeholder="Add your todo" />
+            <button class="addBtn" onclick="addTodo()">Add</button>
+        </div>
+        <ul class="list-items" id="todoList">
+            <!-- <li class="checked">task1</li>
+          <li>task2</li>
+          <li>task3</li> -->
+        </ul>
+    </div>
+
+
+    <!-- <script>
+        var inputBox = document.querySelector("input");
+        var listItems = document.querySelector(".list-items");
+
+        function addTask() {
+            if (inputBox.value === "") {
+                alert("Please enter your task");
+            }
+            else {
+                var li = document.createElement("li");
+                li.innerHTML = inputBox.value;
+                listItems.appendChild(li);
+                var span = document.createElement("span");
+                span.innerHTML = "\u00d7";
+                li.appendChild(span);
+            }
+            inputBox.value = "";
+            saveData();
+        }
+
+        listItems.addEventListener("click", function (e) {
+            if (e.target.tagName === "LI") {
+                e.target.classList.toggle("checked");
+                saveData();
+            }
+            else if (e.target.tagName === "SPAN") {
+                e.target.parentElement.remove();
+                saveData();
+            }
+        })
+
+        function saveData() {
+            localStorage.setItem("data", listItems.innerHTML);
+        }
+
+
+        function showData() {
+            listItems.innerHTML = localStorage.getItem("data");
+        }
+
+        showData();
+    </script> -->
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/store/get/to-do",
+                data: {},
+                success: function (response) {
+                    response['todo'].forEach(element => {
+                        appendtodo(element);
+                    });
+                },
+                error: {}
+            });
+        });
+    </script>
+</body>
+
+</html>

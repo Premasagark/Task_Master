@@ -1,0 +1,138 @@
+* {
+  margin: 0;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(254, 249, 231);
+  background-image: linear-gradient(
+    43deg,
+    #4158d0 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+}
+
+h1 {
+  color: darkblue;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.container {
+  width: 50vw;
+  padding: 20px;
+  background-color: white;
+  position: absolute;
+  top: 25px;
+  left: 25%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.todo-container > ul {
+    font-size: larger;
+    font-weight: bold;
+    list-style-type: none;
+    padding: 16px;
+    text-align: left;
+  }
+
+.todo-msg {
+  margin: auto;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.remove {
+  position: relative;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+ul li {
+  list-style: none;
+  padding: 12px 8px 12px 50px;
+  font-size: 25px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.addBtn {
+  padding: 5px 30px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background-color: orangered;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+input {
+  padding: 15px 15px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  background-color: #ccc;
+  width: 100%;
+  font-size: 17px;
+}
+
+.addBtn:hover {
+  opacity: 0.8;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+ul li::before {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtzjDKgiT5CxF6sNVtZExHyVIgxnT4XldAPJNAjwxZhg&s");
+  background-size: cover;
+  background-position: center;
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  top: 12px;
+  left: 8px;
+  content: "";
+}
+
+ul li.checked {
+  color: #555;
+  text-decoration: line-through;
+}
+
+ul li.checked::before {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfBMV5oYndEHKGg1gTIUQ_PtPF30k4AmQ0jpPYZtY8nlqwWEnsPN8kZ1M4GtjKbuo-EjI&usqp=CAU");
+}
+
+ul li span {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  color: #555;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+ul li span:hover {
+  background-color: #edeef0;
+}

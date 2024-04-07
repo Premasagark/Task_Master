@@ -1,0 +1,4 @@
+Flask==3.0.2
+Gunicorn
+passlib==1.7.4
+pymongo==4.6.2

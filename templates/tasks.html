@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <title>Notes App</title> -->
+
+    <script src="/static/scr.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #c850c0;
+            /* background-image: linear-gradient(43deg,
+                    #4158d0 0%,
+                    #c850c0 46%,
+                    #ffcc70 100%);*/
+        } 
+
+
+
+        textarea {
+            padding: 15px 15px;
+            border-radius: 17px;
+            border: none;
+            outline: none;
+            background-color: #ccc;
+            width: 100%;
+            font-size: 17px;
+        }
+
+        h1 {
+            color: darkblue;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            top: -5px;
+            left: 0%;
+
+        }
+
+        .notes {
+            max-width: 48vw;
+            height: 100px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgb(254, 249, 231);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+
+        #notes-container {
+            width: 700px;
+            max-width: 50vw;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: orangered;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 35%;
+        }
+
+        .note {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .note textarea {
+            width: 100%;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            height: 120px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: #888;
+        }
+
+        .delete-btn:hover {
+            color: #ff4444;
+        }
+
+        #note-input-container {
+            position: absolute;
+            top: 160px;
+            left: 477px;
+            width: 37%;
+            height: 108px;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #note-input {
+            width: calc(100%);
+            height: 90px;
+            margin-right: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #add-note-btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            background-color: orangered;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            position: absolute;
+            top: 116%;
+            left: 39%;
+        }
+
+        #add-note-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="body-color"></div>
+    <!-- <div id="note-input-container">
+        <input type="text" id="note-input" placeholder="Enter your note" />
+        <button id="add-note-btn" onclick="addNote()">Add Note</button> -->
+
+    <div class="notes">
+        <h1>My Task</h1>
+        <div id="note-input-container">
+            <textarea type="text" id="taskInput" placeholder="Enter your Task"></textarea>
+            <button id="add-note-btn" onclick="addTaskP()">Add Note</button>
+        </div>
+        <div id="notes-container">
+
+
+            <div id="taskList">
+                <!-- <div class="note">
+                        <p id=""></p>
+                        <button class=" delete-btn">×</button>
+                    </div> -->
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/store/get/task",
+                data: {},
+                success: function (response) {
+                    response['task'].forEach(element => {
+                        appendtaskP(element);
+                    });
+                },
+                error: {}
+            });
+        });
+        // // Function to add a note
+        // function addNote() {
+        //     var noteInput = document.getElementById("note-input");
+        //     var noteText = noteInput.value.trim();
+
+        //     if (noteText !== "") {
+        //         var notesList = JSON.parse(localStorage.getItem("notes")) || [];
+        //         notesList.push(noteText);
+        //         localStorage.setItem("notes", JSON.stringify(notesList));
+        //         displayNotes();
+        //         noteInput.value = "";
+        //     }
+        // }
+
+
+        // // Function to display notes
+        // function displayNotes() {
+        //     var notesList = JSON.parse(localStorage.getItem("notes")) || [];
+        //     var notesContainer = document.getElementById("notes-list");
+        //     notesContainer.innerHTML = "";
+
+        //     notesList.forEach(function (note, index) {
+        //         var noteDiv = document.createElement("div");
+        //         noteDiv.classList.add("note");
+        //         noteDiv.innerHTML = `
+        //             <textarea onchange="updateNote(${index}, this.value)">${note}</textarea>
+        // <button class="delete-btn" onclick="deleteNote(${index})">&times;</button>
+        // `;
+        // notesContainer.appendChild(noteDiv);
+        // });
+        // }
+
+        // // Function to update note
+        // function updateNote(index, newText) {
+        // var notesList = JSON.parse(localStorage.getItem("notes")) || [];
+        // notesList[index] = newText;
+        // localStorage.setItem("notes", JSON.stringify(notesList));
+        // }
+
+        // // Function to delete note
+        // function deleteNote(index) {
+        // var notesList = JSON.parse(localStorage.getItem("notes")) || [];
+        // notesList.splice(index, 1);
+        // localStorage.setItem("notes", JSON.stringify(notesList));
+        // displayNotes();
+        // }
+
+        // // Display notes when the page loads
+        // displayNotes();
+    </script>
+</body>
+
+</html>
