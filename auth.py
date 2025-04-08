@@ -6,7 +6,7 @@ from pymongo import MongoClient
 
 auth_bp = Blueprint('auth',__name__,url_prefix='/user')
 
-client = MongoClient("mongodb+srv://Premasagar:mongodb25@sparta.zdlbuvp.mongodb.net/")
+client = MongoClient("mongodb+srv://prem:MongoDB25@cluster0.jzra2it.mongodb.net/")
 db = client.task_db
 
 #functions
